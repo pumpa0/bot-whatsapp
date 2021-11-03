@@ -7,7 +7,7 @@
 
 
 <p align="center">
-  <a href="//github.com/caliph91/bot-whatsapp
+  <a href="//github.com/caliph91/bot-whatsapp">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=Caliph91&repo=bot-whatsapp&theme=tokyonight" />
    </a>
 </p>

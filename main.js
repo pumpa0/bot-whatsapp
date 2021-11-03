@@ -48,6 +48,16 @@ fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
 	    mulai()
         }
 	})
+       function waktu(seconds) { 
+seconds = Number(seconds); 
+var d = Math.floor(seconds / (3600 * 24)); 
+var h = Math.floor(seconds % (3600 * 24) / 3600); var m = Math.floor(seconds % 3600 / 60); 
+var s = Math.floor(seconds % 60); 
+var dDisplay = d > 0 ? d + (d == 1 ? " Hari,":" Hari,") : ""; 
+var hDisplay = h > 0 ? h + (h == 1 ? " Jam,":" Jam,") : ""; 
+var mDisplay = m > 0 ? m + (m == 1 ? " Menit,":" Menit,") : ""; 
+var sDisplay = s > 0 ? s + (s == 1 ? " Detik,":" Detik") : ""; return dDisplay + hDisplay + mDisplay + sDisplay; 
+}
 	caliph.on('open', (ye) => {
 		console.log(color('[CLIENT]', 'cyan'), color('Connected...', 'green'))
 	})
@@ -57,6 +67,10 @@ fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
 	// console.log(`Nama Bot : ${caliph.user.name}\nID Bot : ${awesome('+'+caliph.user.jid.split('@')[0]).getNumber('international')}\nMode : ${selfmode ? 'Self Mode' : 'Public Mode'}\nHostname : ${os.hostname()}`)
 		if (!fs.existsSync(authfile)) fs.writeFileSync(authfile, JSON.stringify(caliph.base64EncodedAuthInfo(), null, '\t'))
 	owner.map(a => caliph.reply(a + "@c.us", 'Bot Started.....'))
+              setInterval(async () => {
+              user = JSON.parse(fs.readFileSync('database/user/register.json', 'utf-8'))
+               await caliph.sendStatus(`Status : ${selfmode ? 'Self Mode' : 'Public Mode'} | Uptime ${waktu(process.uptime())} | User Registered : ${user.length} Users | Author : @caliph91 | Auto Update Bio After 1 Minute`)
+             }, 60 * 1000)
 		})
     caliph.on('CB:action,,call', id => {
     require('./message/call')(caliph, id)
@@ -125,14 +139,6 @@ fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
   require('./lib/sticker').support = s
   Object.freeze(global.support)
   }
-
-let file = require.resolve(__filename)
-fs.watchFile(file, () => {
-  fs.unwatchFile(file)
-  console.log(color("Update './index.js'", 'red'))
-  delete require.cache[file]
-  require(file)
-})
 
 mulai()
 _quickTest()

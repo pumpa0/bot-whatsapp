@@ -247,7 +247,7 @@ ingfo = `╭─ *「 REGISTER 」*
 regist.push(m.sender)
 fs.writeFileSync('./database/user/register.json', JSON.stringify(regist, null, 2))
 ppget = await caliph.getProfilePicture(m.sender).catch(() => 'https://storage.caliph71.xyz/img/itsuki.jpg')
-caliph.sendMessage(m.chat, ppget, mType.image, { quoted: m, caption: ingfo })
+caliph.sendMessage(m.chat, { url: ppget }, mType.image, { quoted: m, caption: ingfo })
 break
 case prefix+'unregist':
 if (!isRegist) throw `Kamu Belum Terdaftar!`
@@ -255,6 +255,7 @@ if (!args[0]) return
 if (args[0] !== m.sender.split('@')[0]) throw `Nomor Tidak valid!` 
 tempat = regist.indexOf(m.sender)
 regist.splice(tempat, 1)
+fs.writeFileSync('./database/user/register.json', JSON.stringify(regist, null, 2))
 m.reply(`Unreg Berhasil...`)
 break
 case prefix+'waifu':

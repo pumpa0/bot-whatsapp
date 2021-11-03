@@ -248,7 +248,7 @@ break
 case prefix+'regist':
 if (isRegist) throw `Kamu Telah Daftar Sebelumnya!`
 link = `https://wa.me/${caliph.user.jid.split('@')[0]}?text=.unregist ${m.sender.split('@')[0]}`
-shortlink = await getJson(`https://clph.pw/create.php?url=${encodeURIComponent(link)}&costum=unreg-${m.sender.split('@')[0]}-${Date.now() / 1000}`)
+shortlink = await getJson(`https://clph.pw/create.php?url=${encodeURIComponent(link)}&costum=unreg-${m.sender.split('@')[0]}-${String(Date.now() / 1000).slice(0, 3)}`)
 ingfo = `╭─ *「 REGISTER 」*
 │ Nama: ${caliph.getName(m.sender)}
 │ Bio: ${(await caliph.getStatus(m.sender)).status}

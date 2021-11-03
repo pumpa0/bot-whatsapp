@@ -204,7 +204,7 @@ tex += `${nan}. @${i.split('@')[0]}\n`
 }
 caliph.sendMessage(m.chat, tex, mType.text, { quoted: m, contextInfo : { mentionedJid: blok }})
 break
-case prefi+'sider':
+case prefix+'sider':
 if (!m.quoted) throw `Reply Chat Bot!`
 if (!m.quoted.fromMe) throw `Reply Chat Bot!`
 qtss = m.quoted

@@ -29,6 +29,7 @@ let welcome = JSON.parse(fs.readFileSync('./database/chat/welcome.json').toStrin
 let left = JSON.parse(fs.readFileSync('./database/chat/left.json').toString())
 let detect = JSON.parse(fs.readFileSync('./database/chat/detect.json').toString())
 let regist = JSON.parse(fs.readFileSync('./database/user/register.json').toString())
+let ban = JSON.parse(fs.readFileSync('./database/user/banned.json').toString())
 let { exec } = require("child_process")
 let { color } = require('../lib/color')
 let moment = require('moment')
@@ -49,6 +50,7 @@ let isRegist = regist.includes(m.sender)
 let command = (budy.toLowerCase().split(/ +/)[0] || '')
 let prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?#$%^&.\/\\©^]/.test(command) ? command.match(/^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?#$%^&.\/\\©^]/gi) : global.prefix
 let isCmd = body.startsWith(prefix)
+let isBan = ban.includes(m.sender)
 let { ffmpeg } = require('../lib/converter')
 let isOwner = global.owner.includes(m.sender.split('@')[0]) || m.key.fromMe
 if (isCmd && !m.isGroup) {console.log(color('[EXEC]', 'cyan'), color(moment(m.messageTimestamp.low * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(caliph.getName(m.sender)))}
@@ -95,6 +97,7 @@ const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{
 
 return caliph.relayWAMessage(sendMsg)
 }
+if (isBan && !isOwner) return
 						 switch(command) {
 case prefix+'help': case prefix+'menu':
 caliph.updatePresence(m.chat, 'composing')
@@ -131,6 +134,8 @@ Owner Menu
 - => JavaScript Code
 - ${prefix}public
 - ${prefix}self
+- ${prefix}ban @tag/reply message
+$ ${prefix}unban @tag/reply message
 
 Other Menu
 - ${prefix}toimg (reply sticker)
@@ -933,6 +938,29 @@ if (!isQuod[0]) return m.reply('Tag member yang ingin di block!')
 isQuod.map(a => {
 caliph.blockUser(a, 'remove').catch(() => {})
 })
+break
+case prefix+'ban': 
+if (!isOwner) throw `Situ Owner??`
+isQuod = m.quoted ? [m.quoted.sender] : m.mentionedJid
+if (!isQuod[0]) return m.reply('Tag member yang ingin di ban!')
+isQuod.map(a => {
+if (!ban.includes(a)) ban.push(a)
+})
+await caliph.sendMessage(m.chat, `Sukses Banned Nomor : ${isQuod.map(a => a.split('@')[0]).join(', ')}`, mType.text, { quoted: m })
+fs.writeFileSync('./database/user/banned.json', JSON.stringify(ban, null, 2))
+break
+case prefix+'unban': 
+if (!isOwner) throw `Situ Owner??`
+isQuod = m.quoted ? [m.quoted.sender] : m.mentionedJid
+if (!isQuod[0]) return m.reply('Tag member yang ingin di ban!')
+isQuod.map(a => {
+if (ban.includes(a)) {
+num = ban.indexOf(a)
+ban.splice(num, 1)
+}
+})
+await caliph.sendMessage(m.chat, `Sukses Menghapus Banned Nomor : ${isQuod.map(a => a.split('@')[0]).join(', ')}`, mType.text, { quoted: m })
+fs.writeFileSync('./database/user/banned.json', JSON.stringify(ban, null, 2))
 break
 case prefix+'add': 
 if (!m.isGroup) return m.reply('Perintah ini khusus didalam grup!')

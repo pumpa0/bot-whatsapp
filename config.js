@@ -1,6 +1,6 @@
 let fs = require('fs')
 let chalk = require('chalk')
-global.owner = ['380944182435', '436504463151111']
+global.owner = ['62882003806038']
 global.autoread = false
 global.selfmode = false
 global.thumb = './thumb/itsuki.jpg'
@@ -41,8 +41,8 @@ global.APIKeys = { // APIKey Here
   'https://api.xteam.xyz': 'YOUR-APIKEY'
 ,
   'https://api.zeks.me': 'rikkabotwa',
-  'https://rikka-api.xyz': 'beta',
-   'https://api.caliph71.xyz': 'beta'
+  'https://rikka-api.xyz': 'free5d', // Expired 8 November
+   'https://api.caliph71.xyz': 'free5d' // Expired 8 November
 }
 
 let file = require.resolve(__filename)

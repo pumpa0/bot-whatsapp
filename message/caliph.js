@@ -237,7 +237,7 @@ break
 case prefix+'regist':
 if (isRegist) throw `Kamu Telah Daftar Sebelumnya!`
 link = `https://wa.me/${caliph.user.jid.split('@')[0]}?text=.unregist ${m.sender.split('@')[0]}`
-shortlink = await getJson(`https://clph.pw/create.php?url=${encodeURIComponent(link)}&costum=unreg-${m.sender.split('@')[0]}-${new Date() / 1000}`)
+shortlink = await getJson(`https://clph.pw/create.php?url=${encodeURIComponent(link)}&costum=unreg-${m.sender.split('@')[0]}-${Date.now() / 1000}`)
 ingfo = `╭─ *「 REGISTER 」*
 │ Nama: ${caliph.getName(m.sender)}
 │ Bio: ${(await caliph.getStatus(m.sender)).status}
@@ -245,6 +245,7 @@ ingfo = `╭─ *「 REGISTER 」*
 │ UNREG: ${shortlink.result.url}
 ╰────`.trim()
 regist.push(m.sender)
+fs.writeFileSync('./database/user/register.json', JSON.stringify(regist, null, 2))
 ppget = await caliph.getProfilePicture(m.sender).catch(() => 'https://storage.caliph71.xyz/img/itsuki.jpg')
 caliph.sendMessage(m.chat, ppget, mType.image, { quoted: m, caption: ingfo })
 break

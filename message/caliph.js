@@ -204,6 +204,17 @@ tex += `${nan}. @${i.split('@')[0]}\n`
 }
 caliph.sendMessage(m.chat, tex, mType.text, { quoted: m, contextInfo : { mentionedJid: blok }})
 break
+case prefi+'sider':
+if (!m.quoted) throw `Reply Chat Bot!`
+if (!m.quoted.fromMe) throw `Reply Chat Bot!`
+qtss = m.quoted
+responnya = `Hayo, Jgn Nyimak Mulu banh :\n`
+result = (await caliph.messageInfo(qts.chat, qts.id)).reads
+for (let i of result) {
+qtss += `- wa.me/${i.jid.split('@')[0]}\n_${require('moment-timezone')(i.t * 1000).tz('Asia/Jakarta').format('HH:mm:ss DD MMMM YYYY')}_\n\n`
+}
+caliph.sendMessage(m.chat, qtss, mType.text, { quoted: m })
+break
 case prefix+'perkalian':
 case prefix+'kali':
 if (!text) throw `Contoh : ${command} 10×10`

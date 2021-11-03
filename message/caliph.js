@@ -1013,7 +1013,7 @@ if (s) m.reply(util.format(s), null, { detectLinks: false })
 break
 							 case prefix+"update":
 if (!isOwner) throw `Perintah Ini Khusus Owner Bot Ya ajg!!!!`
-exec('git pulle, q, s) => {
+exec('git pull', (e, q, s) => {
 if (e) return m.reply(util.format(e), null, { detectLinks: false })
 if (q) m.reply(util.format(q), null, { detectLinks: false })
 if (s) m.reply(util.format(s), null, { detectLinks: false })

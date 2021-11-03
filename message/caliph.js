@@ -56,7 +56,7 @@ let isOwner = global.owner.includes(m.sender.split('@')[0]) || m.key.fromMe
 if (isCmd && !m.isGroup) {console.log(color('[EXEC]', 'cyan'), color(moment(m.messageTimestamp.low * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(caliph.getName(m.sender)))}
 if (isCmd && m.isGroup) {console.log(color('[EXEC]', 'cyan'), color(moment(m.messageTimestamp.low * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(caliph.getName(m.sender)), 'in', color(groupMetadata.subject))}
 let text = q = args.join(' ')
-
+if (isBan && !isOwner) return
 if (m.mentionedJid.includes(caliph.user.jid)) {
 // function kalo ngetag bakal ngirim stiker sendiri
 caliph.sendMessage(m.chat, { url: 'https://i.ibb.co/sFbdXfj/6984d8315885.webp' }, 'stickerMessage', { quoted: m, fileLength: 99999999999999 })
@@ -97,7 +97,6 @@ const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{
 
 return caliph.relayWAMessage(sendMsg)
 }
-if (isBan && !isOwner) return
 						 switch(command) {
 case prefix+'help': case prefix+'menu':
 caliph.updatePresence(m.chat, 'composing')
@@ -1007,6 +1006,14 @@ if (!text) return
 if (!isOwner) throw `Perintah Ini Khusus Owner Bot Ya ajg!!!!`
 m.reply('```Executing...```')
 exec(text, async (e, q, s) => {
+if (e) return m.reply(util.format(e), null, { detectLinks: false })
+if (q) m.reply(util.format(q), null, { detectLinks: false })
+if (s) m.reply(util.format(s), null, { detectLinks: false })
+})
+break
+							 case prefix+"update":
+if (!isOwner) throw `Perintah Ini Khusus Owner Bot Ya ajg!!!!`
+exec('git pulle, q, s) => {
 if (e) return m.reply(util.format(e), null, { detectLinks: false })
 if (q) m.reply(util.format(q), null, { detectLinks: false })
 if (s) m.reply(util.format(s), null, { detectLinks: false })

@@ -208,10 +208,10 @@ case prefix+'sider':
 if (!m.quoted) throw `Reply Chat Bot!`
 if (!m.quoted.fromMe) throw `Reply Chat Bot!`
 qtss = m.quoted
-responnya = `Hayo, Jgn Nyimak Mulu banh :\n`
+responnya = `Hayo, Jgn Nyimak Mulu banh :\n\n`
 result = (await caliph.messageInfo(qtss.chat, qtss.id)).reads
 for (let i of result) {
-responnya += `- wa.me/${i.jid.split('@')[0]}\n_${require('moment-timezone')(i.t * 1000).tz('Asia/Jakarta').format('HH:mm:ss DD MMMM YYYY')}_\n\n`
+responnya += `wa.me/${i.jid.split('@')[0]}\n_${require('moment-timezone')(i.t * 1000).tz('Asia/Jakarta').format('HH:mm:ss DD MMMM YYYY')}_\n\n`
 }
 caliph.sendMessage(m.chat, responnya.trim(), mType.text, { quoted: m })
 break

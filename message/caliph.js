@@ -951,7 +951,7 @@ break
 case prefix+'unban': 
 if (!isOwner) throw `Situ Owner??`
 isQuod = m.quoted ? [m.quoted.sender] : m.mentionedJid
-if (!isQuod[0]) return m.reply('Tag member yang ingin di ban!')
+if (!isQuod[0]) return m.reply('Tag member yang ingin di unban!')
 isQuod.map(a => {
 if (ban.includes(a)) {
 num = ban.indexOf(a)

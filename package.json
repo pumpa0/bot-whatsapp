@@ -20,6 +20,7 @@
     "rumus-bdr": "^1.0.0",
     "jsdom": "^16.5.1",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "mathjs": "9.5.0",
     "node-fetch": "^2.6.1",
     "node-webpmux": "^2.0.2",

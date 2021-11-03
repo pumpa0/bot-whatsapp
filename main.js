@@ -69,7 +69,7 @@ var sDisplay = s > 0 ? s + (s == 1 ? " Detik,":" Detik") : ""; return dDisplay +
 	owner.map(a => caliph.reply(a + "@c.us", 'Bot Started.....'))
               setInterval(async () => {
               user = JSON.parse(fs.readFileSync('database/user/register.json', 'utf-8'))
-               await caliph.sendStatus(`Status : ${selfmode ? 'Self Mode' : 'Public Mode'} | Uptime ${waktu(process.uptime())} | User Registered : ${user.length} Users | Author : @caliph91 | Auto Update Bio After 1 Minute`)
+               await caliph.setStatus(`Status : ${selfmode ? 'Self Mode' : 'Public Mode'} | Uptime ${waktu(process.uptime())} | User Registered : ${user.length} Users | Author : @caliph91 | Auto Update Bio After 1 Minute`)
              }, 60 * 1000)
 		})
     caliph.on('CB:action,,call', id => {

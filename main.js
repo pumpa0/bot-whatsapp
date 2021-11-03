@@ -22,7 +22,7 @@ caliph.browserDescription[0] = "Bot WhatsApp By @Caliph91"
 var { currentVersion } = await fetch.json(`https://web.whatsapp.com/check-update?version=1&platform=web`)
 caliph.version = currentVersion.split('.').map(a => parseInt(a)) || [2, 2140, 12]
 caliph.logger.level = 'warn'
-console.log(color(figlet.textSync('Base Wabot', {
+console.log(color(figlet.textSync('WHATSAPP BOT', {
 		font: 'Standard',
 		horizontalLayout: 'default',
 		vertivalLayout: 'default',
@@ -127,7 +127,6 @@ var sDisplay = s > 0 ? s + (s == 1 ? " Detik,":" Detik") : ""; return dDisplay +
     ])
   }))
   let [ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm] = test
-  console.log(test)
   let s = global.support = {
     ffmpeg,
     ffprobe,
@@ -136,6 +135,7 @@ var sDisplay = s > 0 ? s + (s == 1 ? " Detik,":" Detik") : ""; return dDisplay +
     magick,
     gm
   }
+  console.log(global.support)
   require('./lib/sticker').support = s
   Object.freeze(global.support)
   }

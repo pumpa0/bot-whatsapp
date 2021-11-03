@@ -81,7 +81,7 @@ return {key:{ fromMe:false, participant: `0@s.whatsapp.net`, ...(m.chat ? { remo
 						"businessOwnerJid": "0@s.whatsapp.net"}}}
 }
 /* Ends Fake Reply */
-    if (!isRegist && isCmd) {
+    if (!isRegist && isCmd && !command.includes('regist')) {
     let buttons = [
   {buttonId: '/regist', buttonText: {displayText: 'REGISTER'}, type: 1}
 ]
@@ -93,7 +93,7 @@ footerText: `ketik .regist jika button tidak terlihat`,
 }
 const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{ contextInfo: { mentionedJid: [m.sender] }, sendEphemeral: true})
 
-caliph.relayWAMessage(sendMsg)
+return caliph.relayWAMessage(sendMsg)
 }
 						 switch(command) {
 case prefix+'help': case prefix+'menu':

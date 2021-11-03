@@ -40,7 +40,7 @@ fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
 	caliph.on('close', async ({ reason, isReconnecting }) => {
 	console.log(color('[CLIENT]', 'cyan'), color(`Because ${reason} reconnecting : ${isReconnecting}`, 'yellow'))
 	if (!isReconnecting && reason == 'invalid_session') {
-           console.log(color('[CLIENT]', 'cyan'), color('Sesion Invalid, deleting session', 'rex'))
+           console.log(color('[CLIENT]', 'cyan'), color('Sesion Invalid, deleting session', 'red'))
             if (fs.existsSync(authfile)) {
                 fs.unlinkSync(authfile)
             }

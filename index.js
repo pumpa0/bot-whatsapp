@@ -85,7 +85,7 @@ fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
         if (msg.key && msg.key.remoteJid == 'status@broadcast') return 
 	if (!msg.key.fromMe && selfmode) return
 	if (msg.key.id.startsWith('XYZ0')) return
-	if(autoread) caliph.chatRead(msg.chat)
+	if (autoread) await caliph.chatRead(msg.chat).catch(() => {})
     require('./message/caliph')(caliph, msg)
     } catch (e) {
     console.log(color('[ERR]', 'cyan'), color(e, 'red'))

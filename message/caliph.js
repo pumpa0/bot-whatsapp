@@ -28,6 +28,7 @@ let antidelete = JSON.parse(fs.readFileSync('./database/chat/antidelete.json').t
 let welcome = JSON.parse(fs.readFileSync('./database/chat/welcome.json').toString())
 let left = JSON.parse(fs.readFileSync('./database/chat/left.json').toString())
 let detect = JSON.parse(fs.readFileSync('./database/chat/detect.json').toString())
+let regist = JSON.parse(fs.readFileSync('./database/user/register.json').toString())
 let { exec } = require("child_process")
 let { color } = require('../lib/color')
 let moment = require('moment')
@@ -44,6 +45,7 @@ let body = budy
 let isVideo = (m.quoted ? m.quoted.mtype : m.mtype) == mType.video
 let isImage = (m.quoted ? m.quoted.mtype : m.mtype) == mType.image
 let args = body.trim().split(/ +/).slice(1)
+let isRegist = regist.includes(m.sender)
 let command = (budy.toLowerCase().split(/ +/)[0] || '')
 let prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?#$%^&.\/\\©^]/.test(command) ? command.match(/^[°•π÷×¶∆£¢€¥®™✓=|~`,*zxcv!?#$%^&.\/\\©^]/gi) : global.prefix
 let isCmd = body.startsWith(prefix)
@@ -79,6 +81,20 @@ return {key:{ fromMe:false, participant: `0@s.whatsapp.net`, ...(m.chat ? { remo
 						"businessOwnerJid": "0@s.whatsapp.net"}}}
 }
 /* Ends Fake Reply */
+    if (!isRegist && isCmd) {
+    let buttons = [
+  {buttonId: '/regist', buttonText: {displayText: 'REGISTER'}, type: 1}
+]
+const buttonsMessage = {
+    contentText: `Maaf @${m.sender.split('@')[0]}, Kamu Belum Terdaftar Sebagai User Bot`.trim(),    
+footerText: `ketik .regist jika button tidak terlihat`,
+    buttons: buttons,
+    headerType: 1
+}
+const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{ contextInfo: { mentionedJid: [m.sender] }, sendEphemeral: true})
+
+caliph.relayWAMessage(sendMsg)
+}
 						 switch(command) {
 case prefix+'help': case prefix+'menu':
 caliph.updatePresence(m.chat, 'composing')
@@ -217,6 +233,28 @@ case prefix+'asupanloli':
 m.reply(`_*Tunggu permintaan anda sedang diproses..*_`)
 var url = global.API('caliphAPI', '/api/asupan/loli', {}, 'apikey')
 caliph.sendMessage(m.chat, { url }, mType.video, { quoted: m })
+break
+case prefix+'regist':
+if (isRegist) throw `Kamu Telah Daftar Sebelumnya!`
+link = `https://wa.me/${caliph.user.jid.split('@')[0]}?text=.unregist ${m.sender.split('@')[0]}`
+shortlink = await getJson(`https://clph.pw/create.php?url=${encodeURIComponent(link)}&costum=unreg-${m.sender.split('@')[0]}-${new Date() / 1000}`)
+ingfo = `╭─ *「 REGISTER 」*
+│ Nama: ${caliph.getName(m.sender)}
+│ Bio: ${(await caliph.getStatus(m.sender)).status}
+│ API: https://wa.me/${m.sender.split('@')[0]}
+│ UNREG: ${shortlink.result.url}
+╰────`.trim()
+regist.push(m.sender)
+ppget = await caliph.getProfilePicture(m.sender).catch(() => 'https://storage.caliph71.xyz/img/itsuki.jpg')
+caliph.sendMessage(m.chat, ppget, mType.image, { quoted: m, caption: ingfo })
+break
+case prefix+'unregist':
+if (!isRegist) throw `Kamu Belum Terdaftar!`
+if (!args[0]) return
+if (args[0] !== m.sender.split('@')[0]) throw `Nomor Tidak valid!` 
+tempat = regist.indexOf(m.sender)
+regist.splice(tempat, 1)
+m.reply(`Unreg Berhasil...`)
 break
 case prefix+'waifu':
 m.reply(`_*Tunggu permintaan anda sedang diproses..*_`)

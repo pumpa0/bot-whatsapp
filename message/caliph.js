@@ -45,6 +45,7 @@ let budy = (typeof m.text == 'string' ? m.text : '')
 let body = budy
 let isVideo = (m.quoted ? m.quoted.mtype : m.mtype) == mType.video
 let isImage = (m.quoted ? m.quoted.mtype : m.mtype) == mType.image
+let isMedia = /image|video|sticker|audio/.test(m.quoted ? m.quoted.mtype : m.mtype)
 let args = body.trim().split(/ +/).slice(1)
 let isRegist = regist.includes(m.sender)
 let command = (budy.toLowerCase().split(/ +/)[0] || '')
@@ -188,6 +189,13 @@ Maker Menu
 var img = fs.readFileSync(global.thumb)
 caliph.sendMessage(m.chat, img, mType.image, { quoted: freply('Rikka-Botz WhatsApp', img), caption: menu })
 break 
+case prefix+'upload':
+case prefix+'tourl':
+if (!isMedia) throw `Reply Media Dengan Perintah *${command}*`
+buffer = await (m.quoted ? m.quoted : m).download()
+var { result } = await require('../lib/uploadFile')(buffer)
+m.reply(`*SUCCESS*\n\nURL : \`\`\`${result.url}\`\`\``)
+break
 case prefix+'ocr':
 case prefix+'imgtotext':
 case prefix+'img2text':

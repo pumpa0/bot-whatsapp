@@ -15,6 +15,7 @@ let getText = require('../lib/fetcher').text
 let tahta = require('../lib/tahta')
 let tahta2 = require('../lib/tahta2')
 let axios = require('axios')
+let { whatanime } = require(`../lib/functions`)
 let brainly = require ('brainly-scraper')
 let ocr = require('../lib/ocr')
 let fetch = require('node-fetch')
@@ -205,10 +206,18 @@ dl = await caliph.downloadAndSaveMediaMessage(med)
 result = await ocr(dl)
 m.reply(`*IMAGE TO TEXT*:\n\nResult : \`\`\`${result}\`\`\``)
 break
+/*
 case prefix+'wait':
 case prefix'whatanime': 
 if (!isImage) throw `kirim screenshot dari scene anime yang ingin anda cari untuk menampilkan detail dari scene tersebut dengan caption *${command}*`
+m.reply('Mohon tunggu sebentar...')
+buffer = await (m.quoted ? m.quoted : m).download()
+var { result } = await whatanime(buffer)
+caption `WHAT ANIME IS THIS:\n\nJudul `
 break
+
+Mager Sya
+*/ 
 case prefix+'listblock':
 case prefix+'blocklist':
 blok = caliph.blocklist.map(a => a.split('@')[0] + '@s.whatsapp.net')

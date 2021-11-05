@@ -206,18 +206,15 @@ dl = await caliph.downloadAndSaveMediaMessage(med)
 result = await ocr(dl)
 m.reply(`*IMAGE TO TEXT*:\n\nResult : \`\`\`${result}\`\`\``)
 break
-/*
 case prefix+'wait':
 case prefix'whatanime': 
 if (!isImage) throw `kirim screenshot dari scene anime yang ingin anda cari untuk menampilkan detail dari scene tersebut dengan caption *${command}*`
 m.reply('Mohon tunggu sebentar...')
 buffer = await (m.quoted ? m.quoted : m).download()
 var { result } = await whatanime(buffer)
-caption `WHAT ANIME IS THIS:\n\nJudul `
+caption `*WHAT ANIME IS THIS*\n\nJudul : ${result.title.english}\nEpisode : ${result.episode}\nEcchi : ${result.similarity}\nTimestamp : ${result.timestamp}\nKemiripan : ${result.similarity}\nEcchi :  ${result.ecchi ? 'Ya' : 'Tidak'}`
+caliph.sendMessage(m.chat, { url: result.video }, mType.video, { quoted: m, caption })
 break
-
-Mager Sya
-*/ 
 case prefix+'listblock':
 case prefix+'blocklist':
 blok = caliph.blocklist.map(a => a.split('@')[0] + '@s.whatsapp.net')

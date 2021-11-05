@@ -212,7 +212,7 @@ if (!isImage) throw `kirim screenshot dari scene anime yang ingin anda cari untu
 m.reply('Mohon tunggu sebentar...')
 buffer = await (m.quoted ? m.quoted : m).download()
 var { result } = await whatanime(buffer)
-caption `*WHAT ANIME IS THIS*\n\nJudul : ${result.title.english}\nEpisode : ${result.episode}\nEcchi : ${result.similarity}\nTimestamp : ${result.timestamp}\nKemiripan : ${result.similarity}\nEcchi :  ${result.ecchi ? 'Ya' : 'Tidak'}`
+caption = `*WHAT ANIME IS THIS*\n\nJudul : ${result.title.english}\nEpisode : ${result.episode}\nEcchi : ${result.similarity}\nTimestamp : ${result.timestamp}\nKemiripan : ${result.similarity}\nEcchi :  ${result.ecchi ? 'Ya' : 'Tidak'}`
 caliph.sendMessage(m.chat, { url: result.video }, mType.video, { quoted: m, caption })
 break
 case prefix+'listblock':

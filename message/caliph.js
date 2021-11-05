@@ -207,7 +207,7 @@ result = await ocr(dl)
 m.reply(`*IMAGE TO TEXT*:\n\nResult : \`\`\`${result}\`\`\``)
 break
 case prefix+'wait':
-case prefix'whatanime': 
+case prefix+'whatanime': 
 if (!isImage) throw `kirim screenshot dari scene anime yang ingin anda cari untuk menampilkan detail dari scene tersebut dengan caption *${command}*`
 m.reply('Mohon tunggu sebentar...')
 buffer = await (m.quoted ? m.quoted : m).download()

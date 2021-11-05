@@ -205,6 +205,10 @@ dl = await caliph.downloadAndSaveMediaMessage(med)
 result = await ocr(dl)
 m.reply(`*IMAGE TO TEXT*:\n\nResult : \`\`\`${result}\`\`\``)
 break
+case prefix+'wait':
+case prefix'whatanime': 
+if (!isImage) throw `kirim screenshot dari scene anime yang ingin anda cari untuk menampilkan detail dari scene tersebut dengan caption *${command}*`
+break
 case prefix+'listblock':
 case prefix+'blocklist':
 blok = caliph.blocklist.map(a => a.split('@')[0] + '@s.whatsapp.net')

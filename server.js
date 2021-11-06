@@ -8,7 +8,7 @@ function connect(conn, PORT) {
     let _qr = 'invalid'
     app.use(async (req, res) => {
         if (req.path == '/session' && conn.state == 'open') return res.send(caliph.base64EncodedAuthInfo())
-        if (conn.state !== close) return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
+        if (conn.state !== 'close') return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
         res.setHeader('content-type', 'image/png')
         res.end(await qrcode.toBuffer(_qr))
     })

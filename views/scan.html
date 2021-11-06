@@ -2,7 +2,7 @@
 <html>
  
 <head>
-  <title>Please Scan - New Qr after 30 seconds</title>
+  <title>Please Scan - New Qr after 20 seconds</title>
   </head>
   
   
@@ -10,14 +10,17 @@
     <h1>Silahkan Di Scan</h1>
     </br>
   </br>
-    <h3>Refresh qr automate after 30 seconds</h3>
+    <h3>Refresh qr automate after 20 seconds</h3>
       </br>
       </br>
-</br>
 <img src="$QRURL" width="100" height="100">
-</br
 </br>
 
+<script>
+setInterval(() => {
+window.reload()
+ }, 20000)
+</script>
 </body>
 
 </html>

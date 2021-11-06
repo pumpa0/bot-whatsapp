@@ -134,6 +134,7 @@ Owner Menu
 - ${prefix}join linkgroup
 - > JavaScript Code
 - => JavaScript Code
+- ~# (term Code)
 - ${prefix}public
 - ${prefix}self
 - ${prefix}ban @tag/reply message
@@ -1040,7 +1041,7 @@ case prefix+'creator':
 if(owner.length == 1) return caliph.sendContact(m.chat, owner[0], caliph.getName(owner[0] + '@s.whatsapp.net'), m)
 caliph.sendContactArray(m.chat, owner.map(a => a + '@s.whatsapp.net'),{ quoted: m })
 break
-case '$':
+case '~#':
 if (!text) return
 if (!isOwner) throw `Perintah Ini Khusus Owner Bot Ya ajg!!!!`
 m.reply('```Executing...```')

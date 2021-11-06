@@ -15,7 +15,7 @@ demote: '@user Sekarang bukan admin!'
 error : 'Terjadi Kesalahan',
 success: 'Sukses...'
 }
-global.server = false
+global.server = true
 global.prefix = '🐤'
 global.author = '@caliph91_'
 global.packname = 'WhatsApp Bot'

@@ -1,35 +1,41 @@
 let express = require('express')
+let path = require('path')
+// let SocketIO = require('socket.io')
+let qrcode = require('qrcode')
 
-let PORT = process.env.PORT || '8080'
-
-function connect(conn) {
-    let app = express()
-    app.set("json spaces", 2)
+function connect(conn, PORT) {
+    let app = global.app = express()
+    let _qr = 'invalid'
     app.use(async (req, res) => {
-        if (req.path == '/status') {
-        let chats = conn.chats.array.filter(a => !a.jid.includes('status@broadcast'))
-    let totalgc = chats.filter(a => a.jid.endsWith("g.us")).length
-    let totalpc = chats.length - totalgc
-        res.setHeader("User-Agent", "GoogleBot")
-        res.send({ status:200, 
-        user: conn.user, 
-        chats: { 
-        all: chats.length, 
-       group: totalgc, 
-     personal: totalpc 
-         }, 
-         author: {
-         instagram: 'https://instagram.com/caliph91_',
-         github: 'https://github.com/caliph71',
-         youtube: 'https://youtube.com/channel/UCiOxx_EjWiINhwU7JFx2VLA',
-         website: 'https://me.caliph71.xyz'
-},
-        source_code: 'https://github.com/caliph91/bot-whatsapp'
-})
-    } else res.redirect("https://github.com/caliph91/bot-whatsapp")
+        if (req.path == '/session' && conn.state == 'open') return res.send(caliph.base64EncodedAuthInfo())
+        if (conn.state !== close) return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
+        res.setHeader('content-type', 'image/png')
+        res.end(await qrcode.toBuffer(_qr))
+    })
+    conn.on('qr', qr => {
+        _qr = qr
     })
     
- app.listen(PORT, () => console.log('App listened on port', PORT))
+    let server = app.listen(PORT, () => console.log('App listened on port', PORT))
+    // let io = SocketIO(server)
+    // io.on('connection', socket => {
+    //     let { unpipeEmit } = pipeEmit(conn, socket, 'conn-')
+    //     socket.on('disconnect', unpipeEmit)
+    // })
 }
+
+function pipeEmit(event, event2, prefix = '') {
+    let old = event.emit
+    event.emit = function (event, ...args) {
+        old.emit(event, ...args)
+        event2.emit(prefix + event, ...args)
+    }
+    return {
+        unpipeEmit() {
+            event.emit = old
+        }
+    }
+}
+
 
 module.exports = connect

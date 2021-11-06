@@ -1,6 +1,5 @@
 let express = require('express')
 let path = require('path')
-// let SocketIO = require('socket.io')
 let qrcode = require('qrcode')
 let uploadFile = require('./lib/uploadFile')
 let fs = require('fs')

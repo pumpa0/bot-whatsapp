@@ -30,9 +30,14 @@ console.log(color(figlet.textSync('WHATSAPP BOT', {
 		whitespaceBreak: false
 	}), 'cyan'))
 console.log(color('[ CREATED BY Caliph91 ]'))
-caliph.on('qr', async () => {
+if (global.server) {
+  require('./server')(caliph, process.env.PORT || 8080)
+} else {
+	
+	caliph.on('qr', async () => {
 console.log('Scan kode qr ini untuk menjalankan bot')
 })
+}
 fs.existsSync(authfile) && caliph.loadAuthInfo(authfile)
 	caliph.on('connecting', () => {
 		console.log(color('[CLIENT]', 'cyan'), color('Connecting...', 'yellow'))
@@ -63,8 +68,7 @@ var sDisplay = s > 0 ? s + (s == 1 ? " Detik,":" Detik") : ""; return dDisplay +
 	})
 	await caliph.connect().then(async v => { 
         console.log(color(`[CLIENT]`, 'cyan'), color('WhatsApp Web Running On Version :'), color(caliph.version.join('.'), 'yellow'))
-        global.server ? require('./server')(caliph) : ''
-	// console.log(`Nama Bot : ${caliph.user.name}\nID Bot : ${awesome('+'+caliph.user.jid.split('@')[0]).getNumber('international')}\nMode : ${selfmode ? 'Self Mode' : 'Public Mode'}\nHostname : ${os.hostname()}`)
+       // console.log(`Nama Bot : ${caliph.user.name}\nID Bot : ${awesome('+'+caliph.user.jid.split('@')[0]).getNumber('international')}\nMode : ${selfmode ? 'Self Mode' : 'Public Mode'}\nHostname : ${os.hostname()}`)
 		if (!fs.existsSync(authfile)) fs.writeFileSync(authfile, JSON.stringify(caliph.base64EncodedAuthInfo(), null, '\t'))
 	owner.map(a => caliph.reply(a + "@c.us", 'Bot Started.....'))
               setInterval(async () => {

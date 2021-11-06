@@ -7,7 +7,7 @@ function connect(conn, PORT) {
     let app = global.app = express()
     let _qr = 'invalid'
     app.use(async (req, res) => {
-        if (req.path == '/session' && conn.state == 'open') return res.send(caliph.base64EncodedAuthInfo())
+        if (req.path == '/session' && conn.state == 'open') return res.send(conn.base64EncodedAuthInfo())
         if (conn.state == 'open') return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
         res.setHeader('content-type', 'image/png')
         res.end(await qrcode.toBuffer(_qr))

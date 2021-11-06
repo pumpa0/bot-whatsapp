@@ -20,6 +20,7 @@ let brainly = require ('brainly-scraper')
 let ocr = require('../lib/ocr')
 let fetch = require('node-fetch')
 let bdr = require("rumus-bdr")
+let uploadFile = require("../lib/uploadFile")
 let {
 MessageType: mType,
 GroupSettingChange: gcSet
@@ -186,10 +187,30 @@ Maker Menu
 - ${prefix}sadboy (teks|teks2)
 - ${prefix}remlogo (teks)
 - ${prefix}kanekilogo (teks|teks2)
+
+Image Menu
+- ${prefix}flip (Reply/Kirim Gambar)
+- ${prefix}sepia (Reply/Kirim Gambar)
 `.trim()
 var img = fs.readFileSync(global.thumb)
 caliph.sendMessage(m.chat, img, mType.image, { quoted: freply('Rikka-Botz WhatsApp', img), caption: menu })
 break 
+case prefix+"flip":
+if (!isImage) throw `Kirim/Reply Gambar dengan perintah *${command}*`
+buffer = await (m.quoted ? m.quoted : m).download()
+var { result } = await uploadFile(buffer)
+apinya = global.API("caliphAPI", "/api/img/flip", { url: result.url }, "apikey")
+buffer = await getBuffer(apinya)
+caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m, caption: 'Nih kak dh jdi\nFollow : Instagram.com/caliph91_' })
+break
+case prefix+"sepia":
+if (!isImage) throw `Kirim/Reply Gambar dengan perintah *${command}*`
+buffer = await (m.quoted ? m.quoted : m).download()
+var { result } = await uploadFile(buffer)
+apinya = global.API("caliphAPI", "/api/img/sepia", { url: result.url }, "apikey")
+buffer = await getBuffer(apinya)
+caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m, caption: 'Nih kak dh jdi\nFollow : Instagram.com/caliph91_' })
+break
 case prefix+'upload':
 case prefix+'tourl':
 if (!isMedia) throw `Reply Media Dengan Perintah *${command}*`

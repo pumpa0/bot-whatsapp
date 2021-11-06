@@ -24,6 +24,7 @@
     "mathjs": "9.5.0",
     "node-fetch": "^2.6.1",
     "node-webpmux": "^2.0.2",
+    "qrcode": "1.4.4",
     "wikijs": "6.3.2"
   },
   "scripts": {

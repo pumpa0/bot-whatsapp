@@ -12,7 +12,7 @@ function connect(conn, PORT) {
         if (req.path == '/session' && conn.state == 'open') return res.send(conn.base64EncodedAuthInfo())
         if (conn.state == 'open') return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
         qrr = await qrcode.toBuffer(_qr)
-        let { url } = (await uploadFile(qrr)).result
+        let { url } = (await uploadFile(qrr, { scale: 50 })).result
         html = fs.readFileSync('./views/scan.html', 'utf-8')
         res.send(html.replace(/\$QRURL/g, url))
     })

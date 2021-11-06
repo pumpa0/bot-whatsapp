@@ -2,6 +2,8 @@ let express = require('express')
 let path = require('path')
 // let SocketIO = require('socket.io')
 let qrcode = require('qrcode')
+let uploadFile = require('./lib/uploadFile')
+let fs = require('fs')
 
 function connect(conn, PORT) {
     let app = global.app = express()
@@ -9,8 +11,10 @@ function connect(conn, PORT) {
     app.use(async (req, res) => {
         if (req.path == '/session' && conn.state == 'open') return res.send(conn.base64EncodedAuthInfo())
         if (conn.state == 'open') return res.status(403).send({status: 403, message: 'Bot Telah Tersambung ke whatsapp web anda!' })
-        res.setHeader('content-type', 'image/png')
-        res.end(await qrcode.toBuffer(_qr))
+        qrr = await qrcode.toBuffer(_qr)
+        let { url } = (await uploadFile(qrr)).result
+        html = fs.readFileSync('./views/scan.html', 'utf-8')
+        res.send(html.replace(/\$QRURL/g, url))
     })
     conn.on('qr', qr => {
         _qr = qr

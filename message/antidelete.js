@@ -4,8 +4,19 @@ module.exports = async function connect(caliph, m) {
    let revoke = JSON.parse(fs.readFileSync('./database/chat/antidelete.json').toString())
     if (!revoke.includes(m.key.remoteJid)) return
     if (m.key.remoteJid == 'status@broadcast') return 
-    await caliph.sendMessage(m.key.remoteJid, `\`\`\`Terdeteksi @${m.participant.split("@")[0]} Telah Menghapus Pesan\`\`\`\n\nTipe Pesan : *${Object.keys(m.message.message)[0].split('Message')[0]}*`, 'conversation', {quoted: m.message, contextInfo: {"mentionedJid": [m.participant]}})
-   caliph.forwardMessage(m.key.remoteJid, m.message, false).catch(e => console.log(e, m))
+    let buttons = [
+  {buttonId: '/antidelete disable', buttonText: {displayText: 'OFF ANTIDELETE'}, type: 1}
+]
+const buttonsMessage = {
+    contentText: `Terdeteksi @${m.participant} Telah Menghapus Pesan`.trim(),    
+footerText:`Rikka-Bot By Caliph | © ${new Date().getFullYear()}`,
+    buttons: buttons,
+    headerType: "EMPTY"
+}
+const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{ quoted: m.message, contextInfo: { mentionedJid: [m.participant] }, sendEphemeral: true})
+
+await caliph.relayWAMessage(sendMsg)
+caliph.forwardMessage(m.key.remoteJid, m.message, false).catch(e => console.log(e, m))
  }
  
  

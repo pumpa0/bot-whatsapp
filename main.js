@@ -11,10 +11,12 @@ const simple = require('./lib/simple.js')
 const WAPI = simple.WAConnection(WAConnection)
 const fetch = require('./lib/fetcher')
 let fs = require('fs')
+let yargs = require('yargs/yargs')
 let os = require('os')
 let figlet = require('figlet')
 global.authfile = './session.json'
 async function mulai() {
+global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 let caliph = new WAPI()
 caliph.browserDescription = Browsers.appropriate('Desktop')
@@ -30,8 +32,8 @@ console.log(color(figlet.textSync('WHATSAPP BOT', {
 		whitespaceBreak: false
 	}), 'cyan'))
 console.log(color('[ CREATED BY Caliph91 ]'))
-if (global.server) {
-  require('./server')(caliph, process.env.PORT || 8080)
+if (opts.server) {
+  require('./server')(caliph, process.env.PORT || opts.server == true ? opts.server : 8080)
 } else {
 	
 	caliph.on('qr', async () => {

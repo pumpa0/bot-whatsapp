@@ -22,6 +22,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "mathjs": "9.5.0",
+    "ngrok": "latest",
     "node-fetch": "^2.6.1",
     "node-webpmux": "^2.0.2",
     "qrcode": "1.4.4",

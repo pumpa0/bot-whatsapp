@@ -25,12 +25,13 @@
     "node-fetch": "^2.6.1",
     "node-webpmux": "^2.0.2",
     "qrcode": "1.4.4",
-    "wikijs": "6.3.2"
+    "wikijs": "6.3.2",
+    "yargs": "^17.0.1"
   },
   "scripts": {
     "test": "node test.js",
     "start": "node index.js",
-    "update-sc": "git pull"
+    "server": "node . --server"
   },
   "author": "caliph71",
   "license": "ISC"

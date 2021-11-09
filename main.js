@@ -33,7 +33,7 @@ console.log(color(figlet.textSync('WHATSAPP BOT', {
 	}), 'cyan'))
 console.log(color('[ CREATED BY Caliph91 ]'))
 if (opts.server) {
-  require('./server')(caliph, process.env.PORT || opts.server == true ? opts.server : 8080)
+  require('./server')(caliph, process.env.PORT || opts.server == true ? 8080 : opts.server)
 } else {
 	
 	caliph.on('qr', async () => {

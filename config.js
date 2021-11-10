@@ -40,8 +40,8 @@ global.APIKeys = { // APIKey Here
   'https://api.xteam.xyz': 'YOUR-APIKEY'
 ,
   'https://api.zeks.me': 'rikkabotwa',
-  'https://rikka-api.xyz': 'free5d', // Expired 8 November
-   'https://api.caliph71.xyz': 'free5d' // Expired 8 November
+  'https://rikka-api.xyz': 'free5d', // chat wa.me/62882003806038 to buy apikey
+   'https://api.caliph71.xyz': 'free5d' // chat wa.me/62882003806038 to buy apikey
 }
 
 let file = require.resolve(__filename)

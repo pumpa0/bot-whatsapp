@@ -316,7 +316,7 @@ break
  case prefix+'ssweb':
  case prefix+'sswebf':
  case prefix+'ss':
- case prefix'ssf':
+ case prefix+'ssf':
 if (!text) throw `URL nya mana?`
 m.reply('Tunggu bentar kak...')
 isfull = command.endsWith('e') ? { full : '' } : {}
@@ -327,7 +327,7 @@ break
 case prefix+'sswebhp':
  case prefix+'sshp':
  case prefix+'sswebhpf':
- case prefix'sshpf':
+ case prefix+'sshpf':
 if (!text) throw `URL nya mana?`
 m.reply('Tunggu bentar kak...')
 isfull = command.endsWith('e') ? { full : '' } : {}

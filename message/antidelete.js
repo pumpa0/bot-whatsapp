@@ -8,7 +8,7 @@ module.exports = async function connect(caliph, m) {
   {buttonId: '/antidelete disable', buttonText: {displayText: 'OFF ANTIDELETE'}, type: 1}
 ]
 const buttonsMessage = {
-    contentText: `Terdeteksi @${m.participant} Telah Menghapus Pesan`.trim(),    
+    contentText: `Terdeteksi @${m.participant.split('@')[0]} Telah Menghapus Pesan`.trim(),    
 footerText:`Rikka-Bot By Caliph | © ${new Date().getFullYear()}`,
     buttons: buttons,
     headerType: "EMPTY"

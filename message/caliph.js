@@ -314,7 +314,7 @@ fs.writeFileSync('./database/user/register.json', JSON.stringify(regist, null, 2
 m.reply(`Unreg Berhasil...`)
 break
  case prefix+'ssweb':
- case prefix'sswebf':
+ case prefix+'sswebf':
  case prefix+'ss':
  case prefix'ssf':
 if (!text) throw `URL nya mana?`
@@ -325,7 +325,7 @@ buffer = await getBuffer(apih)
 caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m })
 break
 case prefix+'sswebhp':
- case prefix'sshp':
+ case prefix+'sshp':
  case prefix+'sswebhpf':
  case prefix'sshpf':
 if (!text) throw `URL nya mana?`

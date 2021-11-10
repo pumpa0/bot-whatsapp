@@ -1,9 +1,11 @@
 let fs = require('fs')
 let chalk = require('chalk')
+let { color } = require('../lib/color')
 module.exports = async function connect(caliph, m) {
-   let revoke = JSON.parse(fs.readFileSync('./database/chat/antidelete.json').toString())
-    if (!revoke.includes(m.key.remoteJid)) return
-    if (m.key.remoteJid == 'status@broadcast') return 
+     let revoke = JSON.parse(fs.readFileSync('./database/chat/antidelete.json').toString())
+        if (m.key.remoteJid == 'status@broadcast') return 
+    console.log(color(`[CLIENT]`, 'cyan'), color(`${caliph.getName(m.participant} Deleting Message On ${caliph.getName(m.key.remoteJid)} With MESSAGEID :`, 'yellow'), color(m.key.id, 'red'))
+        if (!revoke.includes(m.key.remoteJid)) return
     let buttons = [
   {buttonId: '/antidelete disable', buttonText: {displayText: 'OFF ANTIDELETE'}, type: 1}
 ]

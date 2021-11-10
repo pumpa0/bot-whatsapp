@@ -13,7 +13,7 @@ footerText:`Rikka-Bot By Caliph | © ${new Date().getFullYear()}`,
     buttons: buttons,
     headerType: "EMPTY"
 }
-const sendMsg = await caliph.prepareMessageFromContent(m.chat,{buttonsMessage},{ quoted: m.message, contextInfo: { mentionedJid: [m.participant] }, sendEphemeral: true})
+const sendMsg = await caliph.prepareMessageFromContent(m.key.remoteJid,{buttonsMessage},{ quoted: m.message, contextInfo: { mentionedJid: [m.participant] }, sendEphemeral: true})
 
 await caliph.relayWAMessage(sendMsg)
 caliph.forwardMessage(m.key.remoteJid, m.message, false).catch(e => console.log(e, m))

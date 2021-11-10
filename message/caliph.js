@@ -313,6 +313,28 @@ regist.splice(tempat, 1)
 fs.writeFileSync('./database/user/register.json', JSON.stringify(regist, null, 2))
 m.reply(`Unreg Berhasil...`)
 break
+ case prefix+'ssweb':
+ case prefix'sswebf':
+ case prefix+'ss':
+ case prefix'ssf':
+if (!text) throw `URL nya mana?`
+m.reply('Tunggu bentar kak...')
+isfull = command.endsWith('e') ? { full : '' } : {}
+apih = global.API('caliphAPI', '/api/ssweb', { url: text, ...isfull }, 'apikey')
+buffer = await getBuffer(apih)
+caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m })
+break
+case prefix+'sswebhp':
+ case prefix'sshp':
+ case prefix+'sswebhpf':
+ case prefix'sshpf':
+if (!text) throw `URL nya mana?`
+m.reply('Tunggu bentar kak...')
+isfull = command.endsWith('e') ? { full : '' } : {}
+apih = global.API('caliphAPI', '/api/sshp', { url: text, ...isfull }, 'apikey')
+buffer = await getBuffer(apih)
+caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m })
+break
 case prefix+'waifu':
 m.reply(`_*Tunggu permintaan anda sedang diproses..*_`)
 var waifu = global.API('https://api.waifu.pics', '/sfw/waifu')

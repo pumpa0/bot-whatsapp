@@ -319,7 +319,7 @@ break
  case prefix+'ssf':
 if (!text) throw `URL nya mana?`
 m.reply('Tunggu bentar kak...')
-isfull = command.endsWith('e') ? { full : '' } : {}
+isfull = command.endsWith('f') ? { full : '' } : {}
 apih = global.API('caliphAPI', '/api/ssweb', { url: text, ...isfull }, 'apikey')
 buffer = await getBuffer(apih)
 caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m })
@@ -330,7 +330,7 @@ case prefix+'sswebhp':
  case prefix+'sshpf':
 if (!text) throw `URL nya mana?`
 m.reply('Tunggu bentar kak...')
-isfull = command.endsWith('e') ? { full : '' } : {}
+isfull = command.endsWith('f') ? { full : '' } : {}
 apih = global.API('caliphAPI', '/api/sshp', { url: text, ...isfull }, 'apikey')
 buffer = await getBuffer(apih)
 caliph.sendMessage(m.chat, buffer, mType.image, { quoted: m })
